@@ -1,0 +1,37 @@
+version: "3.4"
+
+services:
+  db:
+    container_name: "votacao.db"
+    image: mysql:8.0.29
+    ports:
+      - "3306:3306" #outside port, internal port
+    volumes:
+      # - "./db:/var/lib/mysql"
+      - db:/var/lib/mysql # Criar um diretório no volume do root do Docker
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - votacao
+
+  app:
+    container_name: "votacao.app"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - "./app:/var/www/app/public"
+      - "./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf"
+      - .:/app:delegated
+      - ~/.composer:/home/root/.composer:delegated
+    networks:
+      - votacao
+
+volumes:
+  db:
+
+networks:
+  votacao:
+    external: true
