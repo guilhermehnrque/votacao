@@ -6,7 +6,7 @@ namespace App\Application\Settings;
 
 class Settings implements SettingsInterface
 {
-    private array $settings;
+    public array $settings;
 
     public function __construct(array $settings)
     {
