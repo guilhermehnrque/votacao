@@ -5,8 +5,15 @@ declare(strict_types=1);
 namespace App\Domain\User;
 
 use JsonSerializable;
+use DateTimeImmutable;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
 
-class User implements JsonSerializable
+
+final class User implements JsonSerializable
 {
     /**
      * @param int|null $id
